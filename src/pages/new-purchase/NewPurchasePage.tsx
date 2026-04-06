@@ -22,6 +22,7 @@ export const NewPurchasePage = () => {
   const [quantity, setQuantity] = useState(1);
   const [billingCycle, setBillingCycle] = useState("Annual Upfront");
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
+  const [hasCategorySelection, setHasCategorySelection] = useState(false);
 
   const selectedProduct = newPurchase.products.find(
     (product) => product.id === newPurchase.selectedProductId
@@ -62,7 +63,11 @@ export const NewPurchasePage = () => {
           <CategoryTabs
             categories={newPurchase.categories}
             selectedKey={newPurchase.selectedCategory}
-            onSelect={(category) => dispatch(setSelectedCategory(category))}
+            showSelection={hasCategorySelection}
+            onSelect={(category) => {
+              setHasCategorySelection(true);
+              dispatch(setSelectedCategory(category));
+            }}
           />
 
           <ProductGrid

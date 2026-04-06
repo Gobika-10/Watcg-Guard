@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { ChevronDown, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 
 interface DetailedSubscription {
@@ -101,9 +101,9 @@ const seedData: DetailedSubscription[] = [
 ];
 
 const utilizationClass = (value: number) => {
-  if (value >= 90) return "bg-red-500";
-  if (value >= 80) return "bg-amber-500";
-  return "bg-emerald-500";
+  if (value >= 90) return "from-rose-500 to-red-500";
+  if (value >= 80) return "from-amber-400 to-orange-500";
+  return "from-emerald-400 to-emerald-600";
 };
 
 const categoryBadgeStyles: Record<string, string> = {
@@ -176,39 +176,48 @@ export const SubscriptionsExpandedView = ({ onClose }: SubscriptionsExpandedView
           />
         </label>
 
-        <select
-          value={customer}
-          onChange={(e) => setCustomer(e.target.value)}
-          className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-sm shadow-sm outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
-        >
-          {customers.map((item) => (
-            <option key={item}>{item}</option>
-          ))}
-        </select>
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-sm shadow-sm outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
-        >
-          {categories.map((item) => (
-            <option key={item}>{item}</option>
-          ))}
-        </select>
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-sm shadow-sm outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
-        >
-          {statuses.map((item) => (
-            <option key={item}>{item}</option>
-          ))}
-        </select>
+        <div className="relative">
+          <select
+            value={customer}
+            onChange={(e) => setCustomer(e.target.value)}
+            className="h-10 w-full appearance-none rounded-xl border border-slate-300 bg-white px-4 pr-10 text-sm font-medium shadow-sm outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+          >
+            {customers.map((item) => (
+              <option key={item}>{item}</option>
+            ))}
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+        </div>
+        <div className="relative">
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="h-10 w-full appearance-none rounded-xl border border-slate-300 bg-white px-4 pr-10 text-sm font-medium shadow-sm outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+          >
+            {categories.map((item) => (
+              <option key={item}>{item}</option>
+            ))}
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+        </div>
+        <div className="relative">
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            className="h-10 w-full appearance-none rounded-xl border border-slate-300 bg-white px-4 pr-10 text-sm font-medium shadow-sm outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
+          >
+            {statuses.map((item) => (
+              <option key={item}>{item}</option>
+            ))}
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+        </div>
       </div>
 
       <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-inner">
         <table className="w-full min-w-[1080px] text-left">
           <thead>
-            <tr className="border-b border-slate-200 bg-slate-50/80 text-[11px] uppercase tracking-wide text-slate-500">
+            <tr className="border-b border-slate-200 bg-slate-50/80 text-[10px] uppercase tracking-wide text-slate-500">
               {[
                 "Customer",
                 "Product",
@@ -222,7 +231,7 @@ export const SubscriptionsExpandedView = ({ onClose }: SubscriptionsExpandedView
                 "Renewal",
                 "Actions",
               ].map((head) => (
-                <th key={head} className="px-3 py-3 font-semibold">
+                <th key={head} className="px-3 py-2.5 font-semibold">
                   {head}
                 </th>
               ))}
@@ -231,37 +240,37 @@ export const SubscriptionsExpandedView = ({ onClose }: SubscriptionsExpandedView
           <tbody>
             {filtered.map((row) => (
               <tr key={row.productCode} className="border-b border-slate-100 transition-colors hover:bg-sky-50/40">
-                <td className="px-3 py-3.5 text-sm text-slate-800">{row.customer}</td>
-                <td className="px-3 py-3.5">
-                  <p className="text-lg font-semibold text-slate-900">{row.product}</p>
-                  <p className="text-xs text-slate-500">{row.productCode}</p>
+                <td className="px-3 py-3 text-[13px] text-slate-800">{row.customer}</td>
+                <td className="px-3 py-3">
+                  <p className="text-base font-semibold text-slate-900">{row.product}</p>
+                  <p className="text-[11px] text-slate-500">{row.productCode}</p>
                 </td>
-                <td className="px-3 py-3.5">
+                <td className="px-3 py-3">
                   <span
                     className={[
-                      "inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ring-1",
+                      "inline-flex rounded-full px-2.5 py-1 text-[12px] font-semibold ring-1",
                       categoryBadgeStyles[row.category] ?? "bg-slate-100 text-slate-700 ring-slate-200",
                     ].join(" ")}
                   >
                     {row.category}
                   </span>
                 </td>
-                <td className="px-3 py-3.5 text-sm">{row.term}</td>
-                <td className="px-3 py-3.5 text-sm font-bold text-slate-900">{row.total}</td>
-                <td className="px-3 py-3.5 text-sm">{row.used}</td>
-                <td className="px-3 py-3.5">
-                  <div className="h-2 w-28 rounded-full bg-slate-200">
+                <td className="px-3 py-3 text-[13px]">{row.term}</td>
+                <td className="px-3 py-3 text-[15px] font-bold text-slate-900">{row.total}</td>
+                <td className="px-3 py-3 text-[15px]">{row.used}</td>
+                <td className="px-3 py-3">
+                  <div className="h-2.5 w-28 rounded-full bg-slate-200/90">
                     <div
-                      className={`h-2 rounded-full ${utilizationClass(row.utilization)}`}
+                      className={`h-2.5 rounded-full bg-gradient-to-r ${utilizationClass(row.utilization)}`}
                       style={{ width: `${row.utilization}%` }}
                     />
                   </div>
-                  <p className="mt-1 text-xs font-semibold text-slate-700">{row.utilization}%</p>
+                  <p className="mt-1 text-[12px] font-semibold text-slate-700">{row.utilization}%</p>
                 </td>
-                <td className="px-3 py-3.5">
+                <td className="px-3 py-3">
                   <span
                     className={[
-                      "inline-flex rounded-full px-2.5 py-1 text-xs font-semibold",
+                      "inline-flex rounded-full px-2.5 py-1 text-[12px] font-semibold",
                       row.status === "Active"
                         ? "bg-emerald-100 text-emerald-700"
                         : "bg-amber-100 text-amber-700",
@@ -270,7 +279,7 @@ export const SubscriptionsExpandedView = ({ onClose }: SubscriptionsExpandedView
                     {row.status}
                   </span>
                 </td>
-                <td className="px-3 py-3.5">
+                <td className="px-3 py-3">
                   <button
                     type="button"
                     onClick={() => toggleAutoRenew(row.productCode)}
@@ -286,7 +295,7 @@ export const SubscriptionsExpandedView = ({ onClose }: SubscriptionsExpandedView
                         row.autoRenew ? "opacity-100" : "opacity-0",
                       ].join(" ")}
                     >
-                      ON
+                      
                     </span>
                     <span
                       className={[
@@ -294,7 +303,7 @@ export const SubscriptionsExpandedView = ({ onClose }: SubscriptionsExpandedView
                         row.autoRenew ? "opacity-0" : "opacity-100",
                       ].join(" ")}
                     >
-                      OFF
+                      
                     </span>
                     <span
                       className={[
@@ -304,9 +313,9 @@ export const SubscriptionsExpandedView = ({ onClose }: SubscriptionsExpandedView
                     />
                   </button>
                 </td>
-                <td className="px-3 py-3.5 text-sm">{row.renewal}</td>
-                <td className="px-3 py-3.5">
-                  <div className="flex gap-3 text-sm font-semibold text-sky-700">
+                <td className="px-3 py-3 text-[13px]">{row.renewal}</td>
+                <td className="px-3 py-3">
+                  <div className="flex gap-2.5 text-[13px] font-semibold text-sky-700">
                     <button type="button" className="hover:text-sky-800 hover:underline">
                       Renew
                     </button>
@@ -326,4 +335,3 @@ export const SubscriptionsExpandedView = ({ onClose }: SubscriptionsExpandedView
     </section>
   );
 };
-

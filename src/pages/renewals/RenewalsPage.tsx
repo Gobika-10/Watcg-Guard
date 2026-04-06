@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { OutcomeBenefits } from "../../components/renewals/OutcomeBenefits";
 import { RenewalActionCard } from "../../components/renewals/RenewalActionCard";
@@ -8,6 +9,7 @@ import { setActiveRenewalAction } from "../../features/renewals/renewalsSlice";
 export const RenewalsPage = () => {
   const dispatch = useAppDispatch();
   const renewals = useAppSelector((state) => state.renewals);
+  const [hasActionSelection, setHasActionSelection] = useState(false);
 
   return (
     <div className="space-y-4">
@@ -21,8 +23,11 @@ export const RenewalsPage = () => {
             description={action.description}
             iconKey={action.iconKey}
             color={action.color}
-            active={renewals.activeAction === action.id}
-            onClick={() => dispatch(setActiveRenewalAction(action.id))}
+            active={hasActionSelection && renewals.activeAction === action.id}
+            onClick={() => {
+              setHasActionSelection(true);
+              dispatch(setActiveRenewalAction(action.id));
+            }}
           />
         ))}
       </section>

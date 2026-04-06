@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { routePaths } from "../../config/routePaths";
+import { uiInitialState } from "./uiMockData";
 
 export type UiIconKey =
   | "dashboard"
@@ -11,7 +11,7 @@ export type UiIconKey =
   | "accountSettings"
   | "billing";
 
-interface UiState {
+export interface UiState {
   brand: {
     name: string;
     subtitle: string;
@@ -33,44 +33,9 @@ interface UiState {
   }>;
 }
 
-const initialState: UiState = {
-  brand: {
-    name: "WatchGuard",
-    subtitle: "Partner Portal",
-  },
-  topBarMeta: {
-    company: "Acme IT Solutions",
-    tier: "Gold Partner",
-    breadcrumbRoot: "Partner Portal",
-  },
-  navigationItems: [
-    { label: "Dashboard", path: routePaths.dashboard, iconKey: "dashboard" },
-    { label: "New Purchase", path: routePaths.newPurchase, iconKey: "newPurchase" },
-    { label: "Renewals", path: routePaths.renewals, iconKey: "renewals" },
-    {
-      label: "Invoices & Billing",
-      path: routePaths.invoicesBilling,
-      iconKey: "invoicesBilling",
-    },
-    // { label: "Usage Reports", path: routePaths.usageReports, iconKey: "usageReports" },
-    // { label: "Support Tickets", path: routePaths.supportTickets, iconKey: "supportTickets" },
-    // {
-    //   label: "Account Settings",
-    //   path: routePaths.accountSettings,
-    //   iconKey: "accountSettings",
-    // },
-  ],
-  quickActions: [
-    { label: "New Purchase", path: routePaths.newPurchase, iconKey: "newPurchase" },
-    { label: "Renew", path: routePaths.renewals, iconKey: "renewals" },
-    { label: "Invoices", path: routePaths.invoicesBilling, iconKey: "billing" },
-    { label: "Support", path: routePaths.supportTickets, iconKey: "supportTickets" },
-  ],
-};
-
 const uiSlice = createSlice({
   name: "ui",
-  initialState,
+  initialState: uiInitialState,
   reducers: {},
 });
 

@@ -15,6 +15,7 @@ interface CategoryTabsProps {
   categories: CategoryItem[];
   selectedKey: PurchaseCategoryKey;
   onSelect: (key: PurchaseCategoryKey) => void;
+  showSelection?: boolean;
 }
 
 const iconMap: Record<PurchaseCategoryIconKey, ComponentType<{ className?: string }>> = {
@@ -31,12 +32,17 @@ const iconToneMap: Record<PurchaseCategoryKey, string> = {
   cloud: "text-sky-600",
 };
 
-export const CategoryTabs = ({ categories, selectedKey, onSelect }: CategoryTabsProps) => {
+export const CategoryTabs = ({
+  categories,
+  selectedKey,
+  onSelect,
+  showSelection = true,
+}: CategoryTabsProps) => {
   return (
     <div className="mt-4 grid grid-cols-2 gap-2.5 xl:grid-cols-4">
       {categories.map((category) => {
         const Icon = iconMap[category.iconKey];
-        const isSelected = selectedKey === category.key;
+        const isSelected = showSelection && selectedKey === category.key;
 
         return (
           <button
