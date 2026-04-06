@@ -19,14 +19,14 @@ interface ChildNode {
 }
 
 const primaryBarTone: Record<HierarchyItem["tone"], string> = {
-  red: "bg-red-600",
-  green: "bg-emerald-600",
-  gray: "bg-emerald-600",
+  red: "bg-gradient-to-r from-red-600 to-red-500",
+  green: "bg-gradient-to-r from-emerald-600 to-emerald-500",
+  gray: "bg-gradient-to-r from-emerald-600 to-emerald-500",
 };
 
 const childBarTone: Record<ChildNode["tone"], string> = {
-  green: "bg-emerald-600",
-  blue: "bg-sky-600",
+  green: "bg-gradient-to-r from-emerald-600 to-emerald-500",
+  blue: "bg-gradient-to-r from-sky-600 to-sky-500",
 };
 
 const expandedChildren: Record<string, ChildNode[]> = {
@@ -57,10 +57,10 @@ export const OrganizationHierarchyCard = ({ items }: OrganizationHierarchyCardPr
       <h3 className="text-xl font-bold text-slate-900">Organization Hierarchy</h3>
 
       <div className="mt-3">
-        <div className="flex items-center gap-3">
-          <div className="h-7 w-[180px] rounded-md bg-slate-200">
+        <div className="flex items-center gap-3 rounded-lg border border-slate-100 bg-slate-50/60 px-2 py-1.5">
+          <div className="h-7 w-[180px] rounded-md bg-slate-200/90 ring-1 ring-slate-200">
             <div
-              className={`h-7 rounded-md ${primaryBarTone[root.tone]}`}
+              className={`h-7 rounded-md shadow-sm ${primaryBarTone[root.tone]}`}
               style={{ width: `${Math.max(root.widthPercent, 2)}%` }}
             />
           </div>
@@ -75,18 +75,18 @@ export const OrganizationHierarchyCard = ({ items }: OrganizationHierarchyCardPr
         {children.map((item, index) => {
           const childRows = isExpanded ? expandedChildren[item.name] ?? [] : [];
           return (
-            <div key={item.name} className="space-y-1.5">
+            <div key={item.name} className="space-y-1.5 rounded-lg border border-slate-100 bg-white px-2 py-1.5">
               <div className="flex items-center gap-3">
                 <div className="relative h-7 w-[180px]">
-                  <div className="absolute left-5 top-[-10px] h-[17px] w-[2px] bg-slate-300" />
-                  <div className="absolute left-5 top-[7px] h-[2px] w-6 bg-slate-300" />
+                  <div className="absolute left-5 top-[-10px] h-[17px] w-[2px] bg-slate-300/80" />
+                  <div className="absolute left-5 top-[7px] h-[2px] w-6 bg-slate-300/80" />
                   {index < children.length - 1 || childRows.length > 0 ? (
-                    <div className="absolute left-5 top-[7px] h-[28px] w-[2px] bg-slate-300" />
+                    <div className="absolute left-5 top-[7px] h-[28px] w-[2px] bg-slate-300/80" />
                   ) : null}
 
-                  <div className="absolute left-8 top-0 h-7 w-[145px] rounded-md bg-slate-200">
+                  <div className="absolute left-8 top-0 h-7 w-[145px] rounded-md bg-slate-200/90 ring-1 ring-slate-200">
                     <div
-                      className={`h-7 rounded-md ${primaryBarTone[item.tone]} transition-all duration-700`}
+                      className={`h-7 rounded-md shadow-sm ${primaryBarTone[item.tone]} transition-all duration-700`}
                       style={{ width: `${Math.max(item.widthPercent, 2)}%` }}
                     />
                   </div>
@@ -101,15 +101,15 @@ export const OrganizationHierarchyCard = ({ items }: OrganizationHierarchyCardPr
               {childRows.map((child, childIndex) => (
                 <div key={`${item.name}-${child.name}`} className="ml-7 flex items-center gap-3">
                   <div className="relative h-7 w-[180px]">
-                    <div className="absolute left-5 top-[-9px] h-[16px] w-[2px] bg-slate-300" />
-                    <div className="absolute left-5 top-[7px] h-[2px] w-6 bg-slate-300" />
+                    <div className="absolute left-5 top-[-9px] h-[16px] w-[2px] bg-slate-300/80" />
+                    <div className="absolute left-5 top-[7px] h-[2px] w-6 bg-slate-300/80" />
                     {childIndex < childRows.length - 1 ? (
-                      <div className="absolute left-5 top-[7px] h-[24px] w-[2px] bg-slate-300" />
+                      <div className="absolute left-5 top-[7px] h-[24px] w-[2px] bg-slate-300/80" />
                     ) : null}
 
-                    <div className="absolute left-8 top-0 h-7 w-[145px] rounded-md bg-slate-200">
+                    <div className="absolute left-8 top-0 h-7 w-[145px] rounded-md bg-slate-200/90 ring-1 ring-slate-200">
                       <div
-                        className={`h-7 rounded-md ${childBarTone[child.tone]} transition-all duration-700`}
+                        className={`h-7 rounded-md shadow-sm ${childBarTone[child.tone]} transition-all duration-700`}
                         style={{ width: `${Math.max(child.widthPercent, 2)}%` }}
                       />
                     </div>
