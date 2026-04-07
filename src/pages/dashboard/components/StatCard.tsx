@@ -1,4 +1,6 @@
 import { BadgeDollarSign, Boxes, CalendarClock, KeyRound, UsersRound } from "lucide-react";
+import { AppBadge } from "../../../components/ui/AppBadge";
+import { AppCard } from "../../../components/ui/AppCard";
 
 type StatTone = "emerald" | "blue" | "rose" | "orange";
 
@@ -52,7 +54,7 @@ export const StatCard = ({ index, title, value, subtitle, note, tone }: StatCard
   const s = toneStyles[tone];
 
   return (
-    <article className="group relative overflow-hidden rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md">
+    <AppCard className="group relative overflow-hidden p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-md">
       <div className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full blur-2xl transition-opacity group-hover:opacity-90 opacity-70">
         <div className={`h-full w-full rounded-full ${s.glow}`} />
       </div>
@@ -61,15 +63,15 @@ export const StatCard = ({ index, title, value, subtitle, note, tone }: StatCard
         <div className={`inline-flex items-center justify-center rounded-xl p-2.5 ring-1 ${s.bg} ${s.ring}`}>
           <Icon className={`h-[18px] w-[18px] ${s.text}`} />
         </div>
-        <span className={`rounded-full ${s.bg} px-2 py-0.5 text-[10px] font-semibold ${s.softText}`}>
+        <AppBadge className={s.softText} tone={tone === "blue" ? "blue" : tone === "rose" ? "rose" : tone === "orange" ? "amber" : "green"}>
           Live
-        </span>
+        </AppBadge>
       </div>
 
       <p className="mt-3 text-3xl font-bold leading-none tracking-tight text-slate-900">{value}</p>
       <p className="mt-1.5 text-sm font-semibold text-slate-800">{title}</p>
       <p className="mt-1 text-xs text-slate-500">{subtitle}</p>
       {note && <p className="mt-0.5 text-xs font-medium text-slate-600">{note}</p>}
-    </article>
+    </AppCard>
   );
 };

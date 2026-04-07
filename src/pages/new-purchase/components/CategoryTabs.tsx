@@ -3,7 +3,7 @@ import { Cloud, Lock, Shield, UserRound } from "lucide-react";
 import type {
   PurchaseCategoryIconKey,
   PurchaseCategoryKey,
-} from "../../features/newPurchase/newPurchaseSlice";
+} from "../../../data/newPurchase/newPurchaseSlice";
 
 interface CategoryItem {
   key: PurchaseCategoryKey;

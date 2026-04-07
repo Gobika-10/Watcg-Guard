@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import dashboardReducer from "../features/dashboard/dashboardSlice";
-import invoicesBillingReducer from "../features/invoicesBilling/invoicesBillingSlice";
-import newPurchaseReducer from "../features/newPurchase/newPurchaseSlice";
-import renewalsReducer from "../features/renewals/renewalsSlice";
-import uiReducer from "../features/ui/uiSlice";
+import dashboardReducer from "../data/dashboard/dashboardSlice";
+import invoicesBillingReducer from "../data/invoicesBilling/invoicesBillingSlice";
+import newPurchaseReducer from "../data/newPurchase/newPurchaseSlice";
+import renewalsReducer from "../data/renewals/renewalsSlice";
+import uiReducer from "../data/ui/uiSlice";
 
 export const store = configureStore({
   reducer: {

@@ -1,4 +1,6 @@
 import { CreditCard } from "lucide-react";
+import { AppBadge } from "../../../components/ui/AppBadge";
+import { AppCard } from "../../../components/ui/AppCard";
 
 interface PaymentMethod {
   id: string;
@@ -13,7 +15,7 @@ interface PaymentMethodsCardProps {
 
 export const PaymentMethodsCard = ({ methods }: PaymentMethodsCardProps) => {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
+    <AppCard className="rounded-2xl transition-shadow hover:shadow-md">
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-semibold text-slate-900">Payment Methods</h3>
         <button type="button" className="text-xs font-semibold text-sky-700 hover:text-sky-800 hover:underline">
@@ -35,13 +37,13 @@ export const PaymentMethodsCard = ({ methods }: PaymentMethodsCardProps) => {
               </div>
             </div>
             {method.isDefault ? (
-              <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+              <AppBadge tone="green" size="md">
                 Default
-              </span>
+              </AppBadge>
             ) : null}
           </article>
         ))}
       </div>
-    </section>
+    </AppCard>
   );
 };

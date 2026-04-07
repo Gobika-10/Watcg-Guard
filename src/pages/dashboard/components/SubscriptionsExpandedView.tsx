@@ -1,5 +1,9 @@
-import { ChevronDown, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
+import { AppBadge } from "../../../components/ui/AppBadge";
+import { AppProgressBar } from "../../../components/ui/AppProgressBar";
+import { AppSelect } from "../../../components/ui/AppSelect";
+import { AppSwitch } from "../../../components/ui/AppSwitch";
 
 interface DetailedSubscription {
   customer: string;
@@ -100,19 +104,6 @@ const seedData: DetailedSubscription[] = [
   },
 ];
 
-const utilizationClass = (value: number) => {
-  if (value >= 90) return "from-rose-500 to-red-500";
-  if (value >= 80) return "from-amber-400 to-orange-500";
-  return "from-emerald-400 to-emerald-600";
-};
-
-const categoryBadgeStyles: Record<string, string> = {
-  Identity: "bg-emerald-100 text-emerald-700 ring-emerald-200",
-  Cloud: "bg-emerald-100 text-emerald-700 ring-emerald-200",
-  "Network Security": "bg-blue-100 text-blue-700 ring-blue-200",
-  Endpoint: "bg-blue-100 text-blue-700 ring-blue-200",
-};
-
 export const SubscriptionsExpandedView = ({ onClose }: SubscriptionsExpandedViewProps) => {
   const [search, setSearch] = useState("");
   const [customer, setCustomer] = useState("All Customers");
@@ -176,42 +167,21 @@ export const SubscriptionsExpandedView = ({ onClose }: SubscriptionsExpandedView
           />
         </label>
 
-        <div className="relative">
-          <select
-            value={customer}
-            onChange={(e) => setCustomer(e.target.value)}
-            className="h-10 w-full appearance-none rounded-xl border border-slate-300 bg-white px-4 pr-10 text-sm font-medium shadow-sm outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
-          >
-            {customers.map((item) => (
-              <option key={item}>{item}</option>
-            ))}
-          </select>
-          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
-        </div>
-        <div className="relative">
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="h-10 w-full appearance-none rounded-xl border border-slate-300 bg-white px-4 pr-10 text-sm font-medium shadow-sm outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
-          >
-            {categories.map((item) => (
-              <option key={item}>{item}</option>
-            ))}
-          </select>
-          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
-        </div>
-        <div className="relative">
-          <select
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            className="h-10 w-full appearance-none rounded-xl border border-slate-300 bg-white px-4 pr-10 text-sm font-medium shadow-sm outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-100"
-          >
-            {statuses.map((item) => (
-              <option key={item}>{item}</option>
-            ))}
-          </select>
-          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
-        </div>
+        <AppSelect
+          value={customer}
+          onChange={(e) => setCustomer(e.target.value)}
+          options={customers.map((item) => ({ value: item, label: item }))}
+        />
+        <AppSelect
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          options={categories.map((item) => ({ value: item, label: item }))}
+        />
+        <AppSelect
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          options={statuses.map((item) => ({ value: item, label: item }))}
+        />
       </div>
 
       <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-inner">
@@ -246,72 +216,42 @@ export const SubscriptionsExpandedView = ({ onClose }: SubscriptionsExpandedView
                   <p className="text-[11px] text-slate-500">{row.productCode}</p>
                 </td>
                 <td className="px-3 py-3">
-                  <span
-                    className={[
-                      "inline-flex rounded-full px-2.5 py-1 text-[12px] font-semibold ring-1",
-                      categoryBadgeStyles[row.category] ?? "bg-slate-100 text-slate-700 ring-slate-200",
-                    ].join(" ")}
+                  <AppBadge
+                    size="md"
+                    withRing
+                    tone={
+                      row.category === "Identity" || row.category === "Cloud"
+                        ? "green"
+                        : row.category === "Network Security" || row.category === "Endpoint"
+                          ? "blue"
+                          : "neutral"
+                    }
                   >
                     {row.category}
-                  </span>
+                  </AppBadge>
                 </td>
                 <td className="px-3 py-3 text-[13px]">{row.term}</td>
                 <td className="px-3 py-3 text-[15px] font-bold text-slate-900">{row.total}</td>
                 <td className="px-3 py-3 text-[15px]">{row.used}</td>
                 <td className="px-3 py-3">
-                  <div className="h-2.5 w-28 rounded-full bg-slate-200/90">
-                    <div
-                      className={`h-2.5 rounded-full bg-gradient-to-r ${utilizationClass(row.utilization)}`}
-                      style={{ width: `${row.utilization}%` }}
-                    />
-                  </div>
+                  <AppProgressBar value={row.utilization} />
                   <p className="mt-1 text-[12px] font-semibold text-slate-700">{row.utilization}%</p>
                 </td>
                 <td className="px-3 py-3">
-                  <span
-                    className={[
-                      "inline-flex rounded-full px-2.5 py-1 text-[12px] font-semibold",
-                      row.status === "Active"
-                        ? "bg-emerald-100 text-emerald-700"
-                        : "bg-amber-100 text-amber-700",
-                    ].join(" ")}
+                  <AppBadge
+                    size="md"
+                    tone={row.status === "Active" ? "green" : "amber"}
                   >
                     {row.status}
-                  </span>
+                  </AppBadge>
                 </td>
                 <td className="px-3 py-3">
-                  <button
-                    type="button"
-                    onClick={() => toggleAutoRenew(row.productCode)}
-                    aria-label={`Toggle auto-renew for ${row.product}`}
-                    className={[
-                      "relative h-7 w-[70px] rounded-full transition",
-                      row.autoRenew ? "bg-emerald-600" : "bg-slate-300",
-                    ].join(" ")}
-                  >
-                    <span
-                      className={[
-                        "absolute inset-y-0 left-2 flex items-center text-[9px] font-bold tracking-wide text-white/90 transition-opacity",
-                        row.autoRenew ? "opacity-100" : "opacity-0",
-                      ].join(" ")}
-                    >
-                      
-                    </span>
-                    <span
-                      className={[
-                        "absolute inset-y-0 right-2 flex items-center text-[9px] font-bold tracking-wide text-white/80 transition-opacity",
-                        row.autoRenew ? "opacity-0" : "opacity-100",
-                      ].join(" ")}
-                    >
-                      
-                    </span>
-                    <span
-                      className={[
-                        "absolute top-0.5 h-6 w-6 rounded-full bg-white transition",
-                        row.autoRenew ? "left-10" : "left-0.5",
-                      ].join(" ")}
-                    />
-                  </button>
+                  <AppSwitch
+                    checked={row.autoRenew}
+                    onToggle={() => toggleAutoRenew(row.productCode)}
+                    ariaLabel={`Toggle auto-renew for ${row.product}`}
+                    showText={false}
+                  />
                 </td>
                 <td className="px-3 py-3 text-[13px]">{row.renewal}</td>
                 <td className="px-3 py-3">

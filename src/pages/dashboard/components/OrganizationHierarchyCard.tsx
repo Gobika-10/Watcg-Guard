@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AppCard } from "../../../components/ui/AppCard";
 
 interface HierarchyItem {
   name: string;
@@ -53,7 +54,7 @@ export const OrganizationHierarchyCard = ({ items }: OrganizationHierarchyCardPr
   const [root, ...children] = items;
 
   return (
-    <section className="rounded-xl border border-slate-200 bg-white p-3.5 shadow-sm">
+    <AppCard className="p-3.5">
       <h3 className="text-xl font-bold text-slate-900">Organization Hierarchy</h3>
 
       <div className="mt-3">
@@ -138,6 +139,6 @@ export const OrganizationHierarchyCard = ({ items }: OrganizationHierarchyCardPr
           </button>
         </div>
       </div>
-    </section>
+    </AppCard>
   );
 };

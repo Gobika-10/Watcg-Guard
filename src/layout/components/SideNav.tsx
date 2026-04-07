@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
-import type { UiIconKey } from "../../features/ui/uiSlice";
+import type { UiIconKey } from "../../data/ui/uiSlice";
 
 const iconMap: Record<UiIconKey, ComponentType<{ className?: string }>> = {
   dashboard: Home,

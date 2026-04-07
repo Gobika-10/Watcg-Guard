@@ -1,6 +1,6 @@
 import { CheckCircle2 } from "lucide-react";
 import { useMemo, useState } from "react";
-import type { RenewalActionId } from "../../features/renewals/renewalsSlice";
+import type { RenewalActionId } from "../../../data/renewals/renewalsSlice";
 
 interface RenewalActionPanelsProps {
   activeAction: RenewalActionId;

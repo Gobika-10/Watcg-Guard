@@ -1,16 +1,16 @@
 import { useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { AutoRenewCard } from "../../components/invoices-billing/AutoRenewCard";
-import { BillingAddressCard } from "../../components/invoices-billing/BillingAddressCard";
-import { BillingSummaryCard } from "../../components/invoices-billing/BillingSummaryCard";
-import { InvoicesTableCard } from "../../components/invoices-billing/InvoicesTableCard";
-import { PaymentMethodsCard } from "../../components/invoices-billing/PaymentMethodsCard";
+import { AutoRenewCard } from "./components/AutoRenewCard";
+import { BillingAddressCard } from "./components/BillingAddressCard";
+import { BillingSummaryCard } from "./components/BillingSummaryCard";
+import { InvoicesTableCard } from "./components/InvoicesTableCard";
+import { PaymentMethodsCard } from "./components/PaymentMethodsCard";
 import {
   setCustomerFilter,
   setPeriodFilter,
   setStatusFilter,
   toggleAutoRenew,
-} from "../../features/invoicesBilling/invoicesBillingSlice";
+} from "../../data/invoicesBilling/invoicesBillingSlice";
 
 export const InvoicesBillingPage = () => {
   const dispatch = useAppDispatch();

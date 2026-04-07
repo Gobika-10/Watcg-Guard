@@ -1,4 +1,4 @@
-import type { StepItem } from "../../features/newPurchase/newPurchaseSlice";
+import type { StepItem } from "../../../data/newPurchase/newPurchaseSlice";
 
 interface PurchaseStepperProps {
   activeStep: number;

@@ -1,11 +1,11 @@
 import { CircleHelp } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { CategoryTabs } from "../../components/new-purchase/CategoryTabs";
-import { CustomerSelect } from "../../components/new-purchase/CustomerSelect";
-import { PurchaseButton } from "../../components/new-purchase/PurchaseButton";
-import { ProductGrid } from "../../components/new-purchase/ProductGrid";
-import { PurchaseStepper } from "../../components/new-purchase/PurchaseStepper";
+import { CategoryTabs } from "./components/CategoryTabs";
+import { CustomerSelect } from "./components/CustomerSelect";
+import { PurchaseButton } from "./components/PurchaseButton";
+import { ProductGrid } from "./components/ProductGrid";
+import { PurchaseStepper } from "./components/PurchaseStepper";
 import {
   goToConfigureStep,
   nextStep,
@@ -13,7 +13,7 @@ import {
   resetPurchaseFlow,
   setSelectedCategory,
   setSelectedCustomer,
-} from "../../features/newPurchase/newPurchaseSlice";
+} from "../../data/newPurchase/newPurchaseSlice";
 
 export const NewPurchasePage = () => {
   const dispatch = useAppDispatch();

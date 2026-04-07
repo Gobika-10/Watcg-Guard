@@ -1,6 +1,7 @@
 import { CheckCircle2, Clock3 } from "lucide-react";
 import { DashboardCard } from "./common/DashboardCard";
 import { DashboardSectionHeader } from "./common/DashboardSectionHeader";
+import { AppBadge } from "../../../components/ui/AppBadge";
 
 interface Subscription {
   customer: string;
@@ -16,13 +17,6 @@ interface SubscriptionTableProps {
   data: Subscription[];
   onViewAll?: () => void;
 }
-
-const categoryBadgeStyles: Record<string, string> = {
-  Identity: "bg-emerald-100 text-emerald-700 ring-emerald-200",
-  Cloud: "bg-emerald-100 text-emerald-700 ring-emerald-200",
-  "Network Security": "bg-blue-100 text-blue-700 ring-blue-200",
-  Endpoint: "bg-blue-100 text-blue-700 ring-blue-200",
-};
 
 export const SubscriptionTable = ({ data, onViewAll }: SubscriptionTableProps) => {
   return (
@@ -65,14 +59,20 @@ export const SubscriptionTable = ({ data, onViewAll }: SubscriptionTableProps) =
                 <td className="py-3 pr-4 text-xs text-slate-600">{row.customer}</td>
                 <td className="py-3 pr-4 text-xs font-semibold text-slate-900">{row.product}</td>
                 <td className="py-3 pr-4">
-                  <span
-                    className={[
-                      "inline-flex whitespace-nowrap rounded-full px-2.5 py-1 text-[10px] font-semibold ring-1",
-                      categoryBadgeStyles[row.category] ?? "bg-slate-100 text-slate-700 ring-slate-200",
-                    ].join(" ")}
+                  <AppBadge
+                    size="md"
+                    withRing
+                    className="whitespace-nowrap"
+                    tone={
+                      row.category === "Identity" || row.category === "Cloud"
+                        ? "green"
+                        : row.category === "Network Security" || row.category === "Endpoint"
+                          ? "blue"
+                          : "neutral"
+                    }
                   >
                     {row.category}
-                  </span>
+                  </AppBadge>
                 </td>
                 <td className="py-3 pr-4 text-xs text-slate-600">{row.licenses}</td>
                 <td className="py-3 pr-4 text-xs text-slate-600">{row.utilized}</td>

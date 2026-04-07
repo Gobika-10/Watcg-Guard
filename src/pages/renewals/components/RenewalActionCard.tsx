@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
 import { Plus, RefreshCw, ShoppingCart, TrendingUp } from "lucide-react";
-import type { RenewalActionIconKey } from "../../features/renewals/renewalsSlice";
+import type { RenewalActionIconKey } from "../../../data/renewals/renewalsSlice";
 
 interface RenewalActionCardProps {
   title: string;

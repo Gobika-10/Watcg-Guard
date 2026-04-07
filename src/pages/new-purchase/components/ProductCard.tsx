@@ -1,6 +1,6 @@
 import { Cloud, Flame, Globe2, Lock, Shield, UserRound } from "lucide-react";
 import type { ComponentType } from "react";
-import type { ProductIconKey } from "../../features/newPurchase/newPurchaseSlice";
+import type { ProductIconKey } from "../../../data/newPurchase/newPurchaseSlice";
 
 interface ProductCardProps {
   name: string;

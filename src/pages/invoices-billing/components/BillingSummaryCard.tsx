@@ -1,3 +1,5 @@
+import { AppCard } from "../../../components/ui/AppCard";
+
 interface BillingSummaryCardProps {
   currentBalance: string;
   lastPaymentAmount: string;
@@ -12,7 +14,7 @@ export const BillingSummaryCard = ({
   nextInvoiceDue,
 }: BillingSummaryCardProps) => {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
+    <AppCard className="rounded-2xl transition-shadow hover:shadow-md">
       <h3 className="text-xl font-semibold text-slate-900">Billing Summary</h3>
 
       <div className="mt-3 rounded-xl border border-rose-100 bg-gradient-to-br from-rose-50 to-white px-4 py-3">
@@ -38,6 +40,6 @@ export const BillingSummaryCard = ({
       >
         Pay Outstanding Balance
       </button>
-    </section>
+    </AppCard>
   );
 };

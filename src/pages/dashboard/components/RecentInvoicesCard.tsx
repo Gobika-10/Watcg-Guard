@@ -1,5 +1,6 @@
 import { DashboardCard } from "./common/DashboardCard";
 import { DashboardSectionHeader } from "./common/DashboardSectionHeader";
+import { AppBadge } from "../../../components/ui/AppBadge";
 
 interface Invoice {
   id: string;
@@ -34,16 +35,13 @@ export const RecentInvoicesCard = ({ invoices }: RecentInvoicesCardProps) => {
               <p className="text-[11px] text-slate-500">{invoice.date}</p>
             </div>
 
-            <span
-              className={[
-                "shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold",
-                invoice.status === "Paid"
-                  ? "bg-emerald-100 text-emerald-700 ring-1 ring-emerald-200"
-                  : "bg-amber-100 text-amber-700 ring-1 ring-amber-200",
-              ].join(" ")}
+            <AppBadge
+              className="shrink-0"
+              tone={invoice.status === "Paid" ? "green" : "amber"}
+              withRing
             >
               {invoice.status}
-            </span>
+            </AppBadge>
 
             <button
               type="button"

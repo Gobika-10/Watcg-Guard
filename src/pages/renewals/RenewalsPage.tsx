@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { OutcomeBenefits } from "../../components/renewals/OutcomeBenefits";
-import { RenewalActionCard } from "../../components/renewals/RenewalActionCard";
-import { RenewalActionPanels } from "../../components/renewals/RenewalActionPanels";
-import { RenewalsHero } from "../../components/renewals/RenewalsHero";
-import { setActiveRenewalAction } from "../../features/renewals/renewalsSlice";
+import { OutcomeBenefits } from "./components/OutcomeBenefits";
+import { RenewalActionCard } from "./components/RenewalActionCard";
+import { RenewalActionPanels } from "./components/RenewalActionPanels";
+import { RenewalsHero } from "./components/RenewalsHero";
+import { setActiveRenewalAction } from "../../data/renewals/renewalsSlice";
 
 export const RenewalsPage = () => {
   const dispatch = useAppDispatch();

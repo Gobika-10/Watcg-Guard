@@ -1,6 +1,6 @@
 import { FileText, Plus, RefreshCw, Ticket } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { SubscriptionsExpandedView } from "../../components/dashboard/SubscriptionsExpandedView";
+import { SubscriptionsExpandedView } from "./components/SubscriptionsExpandedView";
 import { routePaths } from "../../config/routePaths";
 
 const quickCards = [

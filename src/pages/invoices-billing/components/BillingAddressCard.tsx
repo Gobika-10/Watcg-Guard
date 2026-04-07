@@ -1,3 +1,5 @@
+import { AppCard } from "../../../components/ui/AppCard";
+
 interface BillingAddressCardProps {
   company: string;
   lines: string[];
@@ -5,7 +7,7 @@ interface BillingAddressCardProps {
 
 export const BillingAddressCard = ({ company, lines }: BillingAddressCardProps) => {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
+    <AppCard className="rounded-2xl transition-shadow hover:shadow-md">
       <h3 className="text-xl font-semibold text-slate-900">Billing Address</h3>
       <div className="mt-3 rounded-xl border border-slate-200 bg-slate-50/80 p-3.5 text-sm text-slate-600">
         <p className="font-semibold text-slate-800">{company}</p>
@@ -19,6 +21,6 @@ export const BillingAddressCard = ({ company, lines }: BillingAddressCardProps) 
       >
         Edit Address
       </button>
-    </section>
+    </AppCard>
   );
 };

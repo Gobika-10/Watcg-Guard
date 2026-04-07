@@ -9,7 +9,7 @@ import {
 import type {
   ProductItem,
   PurchaseCategoryKey,
-} from "../../features/newPurchase/newPurchaseSlice";
+} from "../../../data/newPurchase/newPurchaseSlice";
 import { PurchaseButton } from "./PurchaseButton";
 
 interface ProductGridProps {

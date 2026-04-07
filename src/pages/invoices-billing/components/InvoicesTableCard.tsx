@@ -1,4 +1,7 @@
 import { InvoiceFilters } from "./InvoiceFilters";
+import { AppBadge } from "../../../components/ui/AppBadge";
+import { AppCard } from "../../../components/ui/AppCard";
+import { AppSectionHeader } from "../../../components/ui/AppSectionHeader";
 
 interface InvoiceItem {
   id: string;
@@ -35,16 +38,17 @@ export const InvoicesTableCard = ({
   onStatusChange,
 }: InvoicesTableCardProps) => {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-      <div className="mb-4 flex items-center justify-between">
-        <div>
-          <h3 className="text-2xl font-semibold tracking-tight text-slate-900">Invoices</h3>
-          <p className="mt-0.5 text-xs text-slate-500">Track and manage invoice activity</p>
-        </div>
-        <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600 shadow-sm">
-          {invoices.length} Records
-        </span>
-      </div>
+    <AppCard className="rounded-2xl">
+      <AppSectionHeader
+        className="mb-0"
+        title="Invoices"
+        action={
+          <AppBadge tone="neutral" size="md" withRing className="shadow-sm">
+            {invoices.length} Records
+          </AppBadge>
+        }
+      />
+      <p className="mt-0.5 text-xs text-slate-500">Track and manage invoice activity</p>
 
       <InvoiceFilters
         customers={filterOptions.customers}
@@ -86,16 +90,9 @@ export const InvoicesTableCard = ({
                 <td className="px-4 py-3.5 text-sm leading-6 text-slate-700">{invoice.description}</td>
                 <td className="px-4 py-3.5 text-sm font-bold text-slate-900">{invoice.amount}</td>
                 <td className="px-4 py-3.5">
-                  <span
-                    className={[
-                      "inline-flex rounded-full px-2.5 py-1 text-xs font-semibold",
-                      invoice.status === "Paid"
-                        ? "bg-emerald-100 text-emerald-700"
-                        : "bg-amber-100 text-amber-700",
-                    ].join(" ")}
-                  >
+                  <AppBadge tone={invoice.status === "Paid" ? "green" : "amber"} size="md">
                     {invoice.status}
-                  </span>
+                  </AppBadge>
                 </td>
                 <td className="px-4 py-3.5 text-sm last:pr-5">
                   <button
@@ -128,6 +125,6 @@ export const InvoicesTableCard = ({
           </tbody>
         </table>
       </div>
-    </section>
+    </AppCard>
   );
 };

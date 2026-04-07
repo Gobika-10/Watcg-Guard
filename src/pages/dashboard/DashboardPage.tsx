@@ -2,15 +2,15 @@ import type { ComponentType } from "react";
 import { CreditCard, Headset, PackagePlus, RefreshCw } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
-import { AccountExecutiveCard } from "../../components/dashboard/AccountExecutiveCard";
-import { AccountHealthCard } from "../../components/dashboard/AccountHealthCard";
-import { OrganizationHierarchyCard } from "../../components/dashboard/OrganizationHierarchyCard";
-import { QuickActionsCard } from "../../components/dashboard/QuickActionsCard";
-import { RecentInvoicesCard } from "../../components/dashboard/RecentInvoicesCard";
-import { StatCard } from "../../components/dashboard/StatCard";
-import { SubscriptionTable } from "../../components/dashboard/SubscriptionTable";
+import { AccountExecutiveCard } from "./components/AccountExecutiveCard";
+import { AccountHealthCard } from "./components/AccountHealthCard";
+import { OrganizationHierarchyCard } from "./components/OrganizationHierarchyCard";
+import { QuickActionsCard } from "./components/QuickActionsCard";
+import { RecentInvoicesCard } from "./components/RecentInvoicesCard";
+import { StatCard } from "./components/StatCard";
+import { SubscriptionTable } from "./components/SubscriptionTable";
 import { routePaths } from "../../config/routePaths";
-import type { UiIconKey } from "../../features/ui/uiSlice";
+import type { UiIconKey } from "../../data/ui/uiSlice";
 
 const quickActionIconMap: Record<UiIconKey, ComponentType<{ className?: string }>> = {
   dashboard: PackagePlus,
