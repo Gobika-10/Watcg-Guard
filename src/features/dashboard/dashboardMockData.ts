@@ -105,6 +105,8 @@ export const dashboardInitialState: DashboardState = {
       date: "01/03/2025",
       status: "Paid",
     },
+
+    
     {
       id: "INV-2025-0211",
       description: "DNSWatchGO Additional Licenses - 100 seats",
