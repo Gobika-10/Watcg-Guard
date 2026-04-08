@@ -1,27 +1,23 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { routePaths } from "../config/routePaths";
 import { AppLayout } from "../layout/AppLayout";
-import { AccountSettingsPage } from "../pages/account-settings/AccountSettingsPage";
+import { AdministrationPage } from "../pages/administration/AdministrationPage";
+import { ConfigurePage } from "../pages/configure/ConfigurePage";
 import { DashboardPage } from "../pages/dashboard/DashboardPage";
-import { SubscriptionsPage } from "../pages/dashboard/SubscriptionsPage";
-import { InvoicesBillingPage } from "../pages/invoices-billing/InvoicesBillingPage";
-import { NewPurchasePage } from "../pages/new-purchase/NewPurchasePage";
-import { RenewalsPage } from "../pages/renewals/RenewalsPage";
-import { SupportTicketsPage } from "../pages/support-tickets/SupportTicketsPage";
-import { UsageReportsPage } from "../pages/usage-reports/UsageReportsPage";
+import { InventoryPage } from "../pages/inventory/InventoryPage";
+import { InvoicesPage } from "../pages/invoices/InvoicesPage";
+import { MonitorPage } from "../pages/monitor/MonitorPage";
 
 export const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<AppLayout />}>
         <Route path={routePaths.dashboard} element={<DashboardPage />} />
-        <Route path={routePaths.dashboardSubscriptions} element={<SubscriptionsPage />} />
-        <Route path={routePaths.newPurchase} element={<NewPurchasePage />} />
-        <Route path={routePaths.renewals} element={<RenewalsPage />} />
-        <Route path={routePaths.invoicesBilling} element={<InvoicesBillingPage />} />
-        <Route path={routePaths.usageReports} element={<UsageReportsPage />} />
-        <Route path={routePaths.supportTickets} element={<SupportTicketsPage />} />
-        <Route path={routePaths.accountSettings} element={<AccountSettingsPage />} />
+        <Route path={routePaths.monitor} element={<MonitorPage />} />
+        <Route path={routePaths.configure} element={<ConfigurePage />} />
+        <Route path={routePaths.inventory} element={<InventoryPage />} />
+        <Route path={routePaths.invoices} element={<InvoicesPage />} />
+        <Route path={routePaths.administration} element={<AdministrationPage />} />
       </Route>
       <Route path="*" element={<Navigate to={routePaths.dashboard} replace />} />
     </Routes>

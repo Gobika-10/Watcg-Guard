@@ -1,79 +1,81 @@
-import type { ComponentType } from "react";
-import { CreditCard, Headset, PackagePlus, RefreshCw } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
-import { AccountExecutiveCard } from "../../components/dashboard/AccountExecutiveCard";
-import { AccountHealthCard } from "../../components/dashboard/AccountHealthCard";
-import { OrganizationHierarchyCard } from "../../components/dashboard/OrganizationHierarchyCard";
-import { QuickActionsCard } from "../../components/dashboard/QuickActionsCard";
-import { RecentInvoicesCard } from "../../components/dashboard/RecentInvoicesCard";
-import { StatCard } from "../../components/dashboard/StatCard";
-import { SubscriptionTable } from "../../components/dashboard/SubscriptionTable";
-import { routePaths } from "../../config/routePaths";
-import type { UiIconKey } from "../../features/ui/uiSlice";
-
-const quickActionIconMap: Record<UiIconKey, ComponentType<{ className?: string }>> = {
-  dashboard: PackagePlus,
-  newPurchase: PackagePlus,
-  renewals: RefreshCw,
-  invoicesBilling: CreditCard,
-  usageReports: CreditCard,
-  supportTickets: Headset,
-  accountSettings: CreditCard,
-  billing: CreditCard,
-};
+import { useAppSelector } from "../../hooks";
+import { DashboardActionCard } from "./components/DashboardActionCard";
+import { DashboardAlertBanner } from "./components/DashboardAlertBanner";
+import { DashboardDeviceStatusCard } from "./components/DashboardDeviceStatusCard";
+import { DashboardEndpointTableCard } from "./components/DashboardEndpointTableCard";
+import { DashboardFirmwareCard } from "./components/DashboardFirmwareCard";
+import { DashboardHero } from "./components/DashboardHero";
+import { DashboardOverviewStat } from "./components/DashboardOverviewStat";
+import { DashboardProductsPanel } from "./components/DashboardProductsPanel";
 
 export const DashboardPage = () => {
-  const navigate = useNavigate();
   const dashboard = useAppSelector((state) => state.dashboard);
-  const quickActions = useAppSelector((state) => state.ui.quickActions);
-  const quickActionsWithIcons = quickActions.map((action) => ({
-    label: action.label,
-    path: action.path,
-    Icon: quickActionIconMap[action.iconKey],
-  }));
 
   return (
-    <div className="space-y-5">
-      <section className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">
-        {dashboard.stats.map((stat, index) => (
-          <StatCard
-            key={stat.title}
-            index={index}
-            title={stat.title}
-            value={stat.value}
-            subtitle={stat.subtitle}
-            note={stat.note}
-            tone={stat.tone}
-          />
-        ))}
+    <div className="space-y-2">
+      <DashboardAlertBanner message={dashboard.billingNotice} />
+
+      <DashboardHero
+        initials={dashboard.hero.initials}
+        greeting={dashboard.hero.greeting}
+        workspace={dashboard.hero.workspace}
+        accounts={dashboard.hero.accounts}
+        delegatedAccounts={dashboard.hero.delegatedAccounts}
+        lastUpdated={dashboard.hero.lastUpdated}
+        tabs={dashboard.hero.tabs}
+      />
+
+      <section className="grid grid-cols-1 gap-2 xl:grid-cols-[minmax(0,1.85fr)_320px]">
+        <div className="space-y-2">
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-2 2xl:grid-cols-5">
+            {dashboard.overviewStats.map((stat) => (
+              <DashboardOverviewStat
+                key={stat.title}
+                title={stat.title}
+                value={stat.value}
+                subtitle={stat.subtitle}
+                iconKey={stat.iconKey}
+              />
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 gap-2 2xl:grid-cols-2">
+            <DashboardDeviceStatusCard
+              title={dashboard.deviceStatus.title}
+              totalDevices={dashboard.deviceStatus.totalDevices}
+              segments={dashboard.deviceStatus.segments}
+            />
+            <DashboardFirmwareCard
+              title={dashboard.firmwareUpgrades.title}
+              readyNow={dashboard.firmwareUpgrades.readyNow}
+              items={dashboard.firmwareUpgrades.items}
+            />
+          </div>
+        </div>
+
+        <DashboardProductsPanel items={dashboard.myProducts} />
       </section>
 
-      <section className="grid grid-cols-1 gap-5 xl:grid-cols-[2fr_1fr]">
-        <SubscriptionTable
-          data={dashboard.subscriptions}
-          onViewAll={() => navigate(routePaths.dashboardSubscriptions)}
+      <section className="grid grid-cols-1 gap-2 xl:grid-cols-[minmax(0,1.85fr)_320px]">
+        <DashboardEndpointTableCard
+          title={dashboard.endpointProtection.title}
+          rows={dashboard.endpointProtection.rows}
+          totalRows={dashboard.endpointProtection.totalRows}
         />
-        <div className="space-y-6">
-          <AccountHealthCard
-            scoreLabel={dashboard.accountHealth.scoreLabel}
-            summary={dashboard.accountHealth.summary}
-          />
-          <QuickActionsCard actions={quickActionsWithIcons} />
+
+        <div className="space-y-2">
+          {dashboard.actionCards.map((card) => (
+            <DashboardActionCard
+              key={card.title}
+              title={card.title}
+              description={card.description}
+              linkLabel={card.linkLabel}
+              iconKey={card.iconKey}
+              tone={card.tone}
+            />
+          ))}
         </div>
       </section>
-
-      <section className="grid grid-cols-1 gap-5 xl:grid-cols-[2fr_1fr]">
-        <RecentInvoicesCard invoices={dashboard.invoices} />
-        <AccountExecutiveCard
-          name={dashboard.accountExecutive.name}
-          role={dashboard.accountExecutive.role}
-          email={dashboard.accountExecutive.email}
-          phone={dashboard.accountExecutive.phone}
-        />
-      </section>
-
-      <OrganizationHierarchyCard items={dashboard.organizationHierarchy} />
     </div>
   );
 };

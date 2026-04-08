@@ -1,69 +1,76 @@
-import { Bell, Menu, Settings, UserCircle2 } from "lucide-react";
-import { useLocation } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
-import { routePaths } from "../../config/routePaths";
+import { Bell, CircleHelp, Menu } from "lucide-react";
+import { NavLink } from "react-router-dom";
+import { useAppSelector } from "../../hooks";
+import watchGuardLogo from "../../assets/images.png";
 
 interface TopBarProps {
   onMenuClick?: () => void;
 }
 
 export const TopBar = ({ onMenuClick }: TopBarProps) => {
-  const location = useLocation();
   const { topBarMeta, navigationItems } = useAppSelector((state) => state.ui);
-  const activeNav = navigationItems.find((item) => item.path === location.pathname);
-  const pageName =
-    location.pathname === routePaths.dashboardSubscriptions
-      ? "Active Subscriptions"
-      : activeNav?.label ?? "Dashboard";
 
   return (
-    <header className="border-b border-slate-200 bg-gradient-to-b from-white to-slate-50/70 px-5 py-3.5 md:px-7">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-start gap-3">
+    <header className="border-b border-white/8 bg-[#0a0a0a] px-4 py-2.5 text-white md:px-5">
+      <div className="mx-auto flex max-w-[1920px] items-center justify-between gap-3">
+        <div className="flex items-center gap-4">
           <button
             type="button"
             onClick={onMenuClick}
             aria-label="Open menu"
-            className="mt-0.5 rounded-xl border border-slate-200 bg-white p-2 text-slate-600 shadow-sm transition hover:border-slate-300 hover:text-slate-900 lg:hidden"
+            className="rounded-lg border border-white/10 bg-white/5 p-2 text-white/80 transition hover:bg-white/10 lg:hidden"
           >
-            <Menu className="h-5 w-5" />
+            <Menu className="h-4 w-4" />
           </button>
 
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">{pageName}</h2>
-            <p className="mt-1 text-sm font-medium text-slate-500">
-              {topBarMeta.breadcrumbRoot} / {pageName}
-            </p>
+          <div className="hidden items-center lg:flex">
+            <img
+              src={watchGuardLogo}
+              alt="WatchGuard"
+              className="block h-11 w-auto object-contain"
+            />
           </div>
+
+          <nav className="hidden items-center gap-1 lg:flex">
+            {navigationItems.map((item) => (
+              <NavLink
+                key={item.label}
+                to={item.path}
+                className={({ isActive }) =>
+                  [
+                    "rounded-md px-4 py-2.5 text-[14px] font-medium transition",
+                    isActive
+                      ? "bg-white/8 text-white shadow-inner ring-1 ring-white/6"
+                      : "text-white/80 hover:bg-white/6 hover:text-white",
+                  ].join(" ")
+                }
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
         </div>
 
-        <div className="flex items-start gap-3 md:gap-4">
-          <div className="mt-0.5 hidden items-center gap-2 text-slate-500 md:flex">
+        <div className="flex items-center gap-2.5">
+          <div className="hidden items-center gap-2 md:flex">
             <button
               type="button"
-              className="relative rounded-xl border border-slate-200 bg-white p-2.5 text-slate-500 shadow-sm transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 hover:shadow"
+              className="relative rounded-full p-2 text-white/85 transition hover:bg-white/10 hover:text-white"
               aria-label="Notifications"
             >
-              <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-red-500" />
               <Bell className="h-5 w-5" />
             </button>
             <button
               type="button"
-              className="rounded-xl border border-slate-200 bg-white p-2.5 text-slate-500 shadow-sm transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-900 hover:shadow"
-              aria-label="Settings"
+              className="rounded-full p-2 text-white/85 transition hover:bg-white/10 hover:text-white"
+              aria-label="Help"
             >
-              <Settings className="h-5 w-5" />
+              <CircleHelp className="h-5 w-5" />
             </button>
           </div>
 
-          <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-2.5 py-1.5 shadow-sm">
-            <div className="text-right leading-tight">
-              <p className="text-sm font-semibold text-slate-900">{topBarMeta.company}</p>
-              <p className="text-xs font-medium text-amber-600">{topBarMeta.tier}</p>
-            </div>
-            <div className="rounded-full bg-gradient-to-br from-slate-700 to-slate-900 p-0.5">
-              <UserCircle2 className="h-9 w-9 text-white" />
-            </div>
+          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#6ea1ef] text-base font-semibold text-white shadow-sm">
+            {topBarMeta.userInitials}
           </div>
         </div>
       </div>

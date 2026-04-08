@@ -1,10 +1,8 @@
 export const routePaths = {
-  dashboard: "/dashboard",
-  dashboardSubscriptions: "/dashboard/subscriptions",
-  newPurchase: "/new-purchase",
-  renewals: "/renewals",
-  invoicesBilling: "/invoices-billing",
-  usageReports: "/usage-reports",
-  supportTickets: "/support-tickets",
-  accountSettings: "/account-settings",
+  dashboard: "/",
+  monitor: "/monitor",
+  configure: "/configure",
+  inventory: "/inventory",
+  invoices: "/invoices",
+  administration: "/administration",
 } as const;
